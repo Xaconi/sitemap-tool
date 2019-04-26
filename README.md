@@ -8,6 +8,7 @@ Achieve fast and simple sitemap load, edit and generation. I hope this tool will
 ### @TODO
 
 - [x] Basic structure
+- [ ] Basic tests
 - [ ] Layout
 - [ ] XML to JSON load
 - [ ] Sitemap table front
