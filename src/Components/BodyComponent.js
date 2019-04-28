@@ -6,9 +6,19 @@ import TableComponent from './TableComponent'
 // Libs
 import { xml2js, js2xml } from 'xml-js';
 import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
+    root: {
+        flexGrow: 1,
+    },
+    paper: {
+        padding: theme.spacing.unit * 2,
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+    },
     button: {
       margin: theme.spacing.unit,
     },
@@ -24,12 +34,19 @@ class BodyComponent extends Component {
         this.state = {
             isLoaded : false,
             jsObject : '',
-            xml : '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>http://www.domain.com /</loc><lastmod>2017-01-01</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url><url><loc>http://www.domain.com/catalog?item=vacation_hawaii</loc><changefreq>weekly</changefreq><priority>0.3</priority><lastmod>2017-01-01</lastmod></url><url><loc>http://www.domain.com/catalog?item=vacation_new_zealand</loc><lastmod>2008-12-23</lastmod><changefreq>weekly</changefreq><priority>0.3</priority></url><url><loc>http://www.domain.com/catalog?item=vacation_newfoundland</loc><lastmod>2008-12-23T18:00:15+00:00</lastmod><priority>0.3</priority><changefreq>weekly</changefreq></url><url><loc>http://www.domain.com/catalog?item=vacation_usa</loc><lastmod>2008-11-23</lastmod><priority>0.3</priority><changefreq>weekly</changefreq></url></urlset>',
+            xml : '',
             xmlObject : ''
         }
     }
 
-    componentDidMount() {
+    _generateXML = () => {
+        const xml = js2xml(this.state.jsObject, { compact: true, spaces: 4})
+        console.log("---GENERATE XML FILE---")
+        console.log(xml)
+        alert("TODO")
+    }
+
+    _loadXML = () => {
         const json = xml2js(this.state.xml, { compact: true, spaces: 4})
         this.setState({ 
             isLoaded : true,
@@ -37,10 +54,10 @@ class BodyComponent extends Component {
         })
     }
 
-    _generateXML = () => {
-        const xml = js2xml(this.state.jsObject, { compact: true, spaces: 4})
-        console.log("---GENERATE XML FILE---")
-        console.log(xml)
+    _updateInputValue = (event) => {
+        this.setState({
+            xml : event.target.value
+        })
     }
 
     render() {
@@ -62,7 +79,30 @@ class BodyComponent extends Component {
                             Export XML
                         </Button>
                     </div>
-                : <p>Loading XML...</p>}      
+                : <div>
+                    <Grid item xs={12}>
+                        <TextField
+                            placeholder="Paste here your sitemap XML file...even if it's big as Snorlax..."
+                            multiline={true}
+                            rows={2}
+                            rowsMax={40}
+                            onChange={event => this._updateInputValue(event)}
+                            variant="outlined"
+                            label="Your Sitemap XML"
+                            className="sitemapTextArea"
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Button
+                            onClick={this._loadXML}
+                            className={classes.button}
+                            color="primary"
+                            variant="contained"
+                        >
+                            Load XML
+                        </Button>
+                    </Grid>
+                </div>}      
             </div>   
         )
     }
