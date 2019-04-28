@@ -71,9 +71,9 @@ class BodyComponent extends Component {
                         <TableComponent 
                             json={this.state.jsObject} />
                         <Button 
-                            onClick={this._generateXML}
                             className={classes.button}
                             color="primary"
+                            onClick={this._generateXML}
                             variant="contained"
                         >
                             Export XML
@@ -82,21 +82,21 @@ class BodyComponent extends Component {
                 : <div>
                     <Grid item xs={12}>
                         <TextField
-                            placeholder="Paste here your sitemap XML file...even if it's big as Snorlax..."
+                            className="sitemapTextArea"
+                            label="Your Sitemap XML"
                             multiline={true}
+                            onChange={event => this._updateInputValue(event)}
+                            placeholder="Paste here your sitemap XML file...even if it's big as Snorlax..."
                             rows={2}
                             rowsMax={40}
-                            onChange={event => this._updateInputValue(event)}
                             variant="outlined"
-                            label="Your Sitemap XML"
-                            className="sitemapTextArea"
                         />
                     </Grid>
                     <Grid item xs={12}>
                         <Button
-                            onClick={this._loadXML}
                             className={classes.button}
                             color="primary"
+                            onClick={this._loadXML}
                             variant="contained"
                         >
                             Load XML
