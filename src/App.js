@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 // Components
 import { HeaderComponent } from './Sections/Header'
 import { FooterComponent } from './Sections/Footer'
-import { BodyComponent} from './Components/BodyComponent'
+import BodyComponent from './Components/BodyComponent'
 
 const styles = theme => ({
 	root: {
